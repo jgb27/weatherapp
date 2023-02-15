@@ -17,24 +17,32 @@ import {
 import dynamic from 'next/dynamic'
 import ObjLoader from '../components/obj-loader'
 
-const LazyObjLoader = dynamic(() => import('../components/three-obj.js'), {
-  ssr: false,
-  loading: () => <ObjLoader />
-})
 export default function Home() {
 
-  const [location, setLocation] = useState('Vitória, BR')
+  const [location, setLocation] = useState('')
   const [weather, setWeather] = useState('')
   const [temp, setTemp] = useState(0)
   const [humidity, setHumidity] = useState(0)
 
+  // stating before the page loads
+  useEffect(() => {
+    getWeather('London')
+  }, [])
 
+  const LazyObjLoader = dynamic(() => import('../components/three-obj.js'), {
+    ssr: false,
+    loading: () => <ObjLoader />
+  })
 
   const getWeather = async (location) => {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`)
     const data = await res.json()
     if (data.cod === 200) {
+      const { temp, humidity } = data.main
       setWeather(data.weather[0].main.toLowerCase())
+      setTemp(temp)
+      setHumidity(humidity)
+      setLocation(data.name)
     } else {
       setHumidity(0)
       setTemp(0)
@@ -42,28 +50,6 @@ export default function Home() {
       setWeather('404')
     }
   }
-
-  const getTempAndHumidity = async () => {
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`)
-    const data = await res.json()
-    if (data.cod === 200) {
-      const { temp, humidity } = data.main
-      setTemp(temp)
-      setHumidity(humidity)
-    } else {
-      setWeather('404')
-
-    }
-  }
-
-  const handler = (e) => {
-    if (e.key === 'Enter') {
-      setLocation(e.target.value)
-      getWeather(e.target.value)
-      getTempAndHumidity()
-    }
-  }
-
 
   const getBackground = () => {
     switch (weather) {
@@ -103,12 +89,6 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    getWeather("Vitória, BR")
-    getTempAndHumidity()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <Layout>
       <Center
@@ -141,7 +121,7 @@ export default function Home() {
                 _hover={{ borderColor: 'purple.500' }}
                 _placeholder={{ color: 'gray.400' }}
                 boxShadow='lg'
-                onKeyDown={handler}
+                onKeyPress={(e) => { if (e.key === 'Enter') getWeather(e.target.value) }}
               />
             </InputGroup >
           </Center >
@@ -151,26 +131,33 @@ export default function Home() {
             justifyContent='center'
             alignItems='center'
           >
-            <LazyObjLoader
-              weather={"sun"}
-            />
+            {
+              weather ? (
+                <LazyObjLoader weather={weather ? weather : "clear"} />
+              ) : (
+                <Box fontSize='xl' fontWeight='bold' color='white'>
+                  Location not found
+                </Box>
+              )
+            }
             <VStack
               spacing='-10px'
               alignItems='center'
               justify={weather === '404' ? 'center' : 'flex-start'}
             >
-              <HStack
-                color='white'
-              >
+              <HStack>
                 <Box
                   fontSize='5xl'
                   fontWeight='bold'
+                  color='white'
+
                 >
                   {temp}
                 </Box>
                 <Box
                   fontSize='xl'
                   fontWeight='bold'
+                  color='white'
                 >
                   °C
                 </Box>
@@ -178,6 +165,7 @@ export default function Home() {
               <Box
                 fontSize='xl'
                 fontWeight='bold'
+                color='white'
               >
                 {location}
               </Box>

@@ -13,7 +13,7 @@ const ThreeObj = ({ weather }) => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const urlDogGLB = `/${weather}.glb`
+  const urlGLB = `/models3d/${weather}.glb`
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -25,6 +25,16 @@ const ThreeObj = ({ weather }) => {
       renderer.setSize(scW, scH)
     }
   }, [])
+
+  const scaleGLB = () => {
+    switch(weather){
+      case 'clear':
+        return new THREE.Vector3(0, 1, 0);
+      case 'clouds':
+        return new THREE.Vector3(0, 1, 2);
+    }
+  };
+
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -44,18 +54,18 @@ const ThreeObj = ({ weather }) => {
       refRenderer.current = renderer
       const scene = new THREE.Scene()
 
-      const target = new THREE.Vector3(-0.5, 1.2, 0)
+      const target = scaleGLB()
       const initialCameraPosition = new THREE.Vector3(-90, 0, 0)
 
       // 640 -> 240
       // 8   -> 6
-      const scale = scH * 0.001 + 2.3
+      const scale = scH * 0.001 + 2.8
       const camera = new THREE.OrthographicCamera(
         - scale * (scW / scH), // left
         scale * (scW / scH), // right
-        scale * 1.25, // top
-        - scale * 1.75, // bottom
-        0.1,
+        scale * 1.35, // top
+        - scale * 1.45, // bottom
+        0.01,
         50000
       )
       camera.position.copy(initialCameraPosition)
@@ -71,7 +81,7 @@ const ThreeObj = ({ weather }) => {
       controls.enableRotate = false
       controls.target = target
 
-      loadGLTFModel(scene, urlDogGLB, {
+      loadGLTFModel(scene, urlGLB, {
         receiveShadow: false,
         castShadow: false
       }).then(() => {
