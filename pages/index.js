@@ -14,12 +14,21 @@ import {
   InputLeftElement
 } from "@chakra-ui/react";
 
+import dynamic from 'next/dynamic'
+import ObjLoader from '../components/obj-loader'
+
+const LazyObjLoader = dynamic(() => import('../components/three-obj.js'), {
+  ssr: false,
+  loading: () => <ObjLoader />
+})
 export default function Home() {
 
   const [location, setLocation] = useState('Vitória, BR')
   const [weather, setWeather] = useState('')
   const [temp, setTemp] = useState(0)
   const [humidity, setHumidity] = useState(0)
+
+
 
   const getWeather = async (location) => {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`)
@@ -43,7 +52,7 @@ export default function Home() {
       setHumidity(humidity)
     } else {
       setWeather('404')
-    
+
     }
   }
 
@@ -75,9 +84,29 @@ export default function Home() {
     }
   }
 
+  const getBackgroundBox = () => {
+    switch (weather) {
+      case 'clear':
+        return 'linear(to-r, blue.200, blue.300)'
+      case 'clouds':
+        return 'linear(to-r, gray.400, gray.500)'
+      case 'rain':
+        return 'linear(to-r, blue.200, blue.300)'
+      case 'snow':
+        return 'linear(to-r, blue.100, blue.200)'
+      case 'mist':
+        return 'linear(to-r, gray.400, gray.500)'
+      case '404':
+        return 'linear(to-r, red.100, red.200)'
+      default:
+        return 'linear(to-r, yellow.200, yellow.300)'
+    }
+  }
+
   useEffect(() => {
     getWeather("Vitória, BR")
     getTempAndHumidity()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -87,9 +116,9 @@ export default function Home() {
         bgGradient={getBackground()}
       >
         <VStack
-          w="25vw"
-          h="65vh"
-          bgColor="white"
+          w={["300px", "400px", "500px"]}
+          h={["400px", "500px"]}
+          bgGradient={getBackgroundBox()}
           borderRadius="xl"
           boxShadow="md"
           p="5"
@@ -104,6 +133,7 @@ export default function Home() {
                 placeholder='Enter Your Location'
                 w='100%'
                 color='black'
+                bgColor='white'
                 borderColor='gray.400'
                 borderRadius='xl'
                 borderWidth='2px'
@@ -117,39 +147,41 @@ export default function Home() {
           </Center >
           <VStack
             w='100%'
-            h='100%'
-            justifyContent='space-evenly'
+            h='70%'
+            justifyContent='center'
             alignItems='center'
           >
-            <Image
-              key={weather}
-              src={`/images/${weather}.png`}
-              alt={weather}
-              w='12vw'
+            <LazyObjLoader
+              weather={"sun"}
             />
-            <HStack>
-              <Box
-                fontSize='5xl'
-                fontWeight='bold'
-                color='gray.600'
+            <VStack
+              spacing='-10px'
+              alignItems='center'
+              justify={weather === '404' ? 'center' : 'flex-start'}
+            >
+              <HStack
+                color='white'
               >
-                {temp}
-              </Box>
+                <Box
+                  fontSize='5xl'
+                  fontWeight='bold'
+                >
+                  {temp}
+                </Box>
+                <Box
+                  fontSize='xl'
+                  fontWeight='bold'
+                >
+                  °C
+                </Box>
+              </HStack>
               <Box
                 fontSize='xl'
                 fontWeight='bold'
-                color='gray.600'
               >
-                °C
+                {location}
               </Box>
-            </HStack>
-            <Box
-              fontSize='xl'
-              fontWeight='bold'
-              color='gray.600'
-            >
-              {location}
-            </Box>
+            </VStack>
           </VStack>
         </VStack >
       </Center >
