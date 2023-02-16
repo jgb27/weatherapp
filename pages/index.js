@@ -48,7 +48,7 @@ export default function Home() {
     if (e.key === 'Enter') {
       getWeather(e.target.value).then((res) => {
         setLocation(res.location)
-        setWeather("clear")
+        setWeather(res.weather)
         setTemp(res.temp)
         setHumidity(res.humidity)
         setDescription(res.description)
@@ -73,7 +73,7 @@ export default function Home() {
   return (
     <Layout title={`Weather EBX - ${location ? location : "Home"}`}>
       <Center h="100vh" bgGradient={getBackground(weather)}>
-        <VStack>
+        <VStack >
           <VStack
             w={["300px", "400px", "500px"]}
             h={["400px", "500px"]}
@@ -83,8 +83,8 @@ export default function Home() {
             p="5"
           >
             <Center> <Search onPress={Handler} /> </Center>
-            <VStack w='100%' h='90%' justifyContent='space-evenly' alignItems='center'>
-              <Text fontSize='5xl' fontWeight='bold' color='white' >
+            <VStack w='100%' h={["85%", "90%"]} justifyContent='space-evenly' alignItems='center'>
+              <Text fontSize='xl' fontWeight='bold' color='white' >
                 {description}
               </Text>
               {getGLB()}
@@ -94,7 +94,7 @@ export default function Home() {
                 location={location}
                 wind={wind}
                 pressure={pressure}
-                country='BR'
+                country={country}
               />
             </VStack>
           </VStack >
