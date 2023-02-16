@@ -78,6 +78,8 @@ export default function Home() {
       ))
   }
 
+  const desc = description[0].toUpperCase() + description.slice(1)
+
   // render
   return (
     <Layout title={`Weather EBX - ${location ? location : "Home"}`}>
@@ -94,7 +96,7 @@ export default function Home() {
             <Center> <Search onPress={Handler} /> </Center>
             <VStack w='100%' h={["85%", "90%"]} justifyContent='space-evenly' alignItems='center'>
               <Text fontSize='xl' fontWeight='bold' color='white' >
-                {description[0].toUpperCase() + description.slice(1)}
+                {desc}
               </Text>
               {getGLB()}
               <Info
