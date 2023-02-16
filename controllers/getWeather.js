@@ -10,9 +10,7 @@ const getCurrentWeather = async () => {
   return await getWeather(city)
 }
 
-const getWeather = async (location) => {
-  // get current language
-  const lang = navigator.language.toLowerCase().replace('-', '_')
+const getWeather = async (location, lang) => {
 
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&lang=${lang}`)
   const data = await res.json()
