@@ -37,7 +37,7 @@ export default function Home() {
 
   // effects: run before render 
   useEffect(() => {
-    getCurrentWeather().then((res) => {
+    getCurrentWeather(lang).then((res) => {
       setLocation(res.location)
       setWeather(res.weather)
       setTemp(res.temp)
@@ -56,10 +56,24 @@ export default function Home() {
     loading: () => <ObjLoader />
   })
 
+  const switchLang = (lang) => {
+    getWeather(location, lang).then((res) => {
+      setLocation(res.location)
+      setWeather(res.weather)
+      setTemp(res.temp)
+      setHumidity(res.humidity)
+      setDescription(res.description)
+      setWind(res.wind)
+      setPressure(res.pressure)
+      setCountry(res.country)
+      setLang(res.lang)
+    })
+  }
+
   // handlers for search
   const Handler = (e) => {
     if (e.key === 'Enter') {
-      getWeather(e.target.value).then((res) => {
+      getWeather(e.target.value, lang).then((res) => {
         setLocation(res.location)
         setWeather(res.weather)
         setTemp(res.temp)
@@ -87,15 +101,26 @@ export default function Home() {
   return (
     <Layout title={`Weather EBX - ${location ? location : "Home"}`}>
       <VStack w="100vw" h="100vh" bgGradient={getBackground(weather)}>
-        <Select 
-          w='100px' 
-          position='absolute' 
-          mt="10vh" 
+        <Select
+          w='150px'
+          position='absolute'
+          mt="10vh"
           bgGradient={getBackground(weather)}
           border="1px solid white"
-          >
+          color="white"
+          defaultValue={lang}
+          onChange={(e) => switchLang(e.target.value)}
+        >
+          <option value="pt_br">Português-BR</option>
           <option value="en">English</option>
           <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
+          <option value="pt">Português</option>
+          <option value="ru">Русский</option>
+          <option value="ja">日本語</option>
+          <option value="zh">中文</option>
         </Select>
         <Center h="100vh">
           <VStack >
