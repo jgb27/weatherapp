@@ -6,16 +6,17 @@ import { SearchIcon, } from '@chakra-ui/icons'
 import {
   Box,
   HStack,
-  Image,
   Center,
   VStack,
   Input,
   InputGroup,
+  Text,
   InputLeftElement
 } from "@chakra-ui/react";
 
 import dynamic from 'next/dynamic'
 import ObjLoader from '../components/obj-loader'
+
 
 export default function Home() {
 
@@ -26,7 +27,7 @@ export default function Home() {
 
   // stating before the page loads
   useEffect(() => {
-    getWeather('London')
+    getWeather('Vitória, BR')
   }, [])
 
   const LazyObjLoader = dynamic(() => import('../components/three-obj.js'), {
@@ -95,87 +96,93 @@ export default function Home() {
   }
 
   return (
-    <Layout>
+    <Layout title={`Weather EBX - ${location ? location : "Home"}`}>
       <Center
         h="100vh"
         bgGradient={getBackground()}
       >
-        <VStack
-          w={["300px", "400px", "500px"]}
-          h={["400px", "500px"]}
-          bgGradient={getBackgroundBox()}
-          borderRadius="xl"
-          boxShadow="md"
-          p="5"
-        >
-          <Center>
-            <InputGroup >
-              <InputLeftElement pointerEvents='none'>
-                <SearchIcon color='gray.400' />
-              </InputLeftElement>
-              <Input
-                type='text'
-                placeholder='Enter Your Location'
-                w='100%'
-                color='black'
-                bgColor='white'
-                borderColor='gray.400'
-                borderRadius='xl'
-                borderWidth='2px'
-                _focus={{ outline: 'none' }}
-                _hover={{ borderColor: 'purple.500' }}
-                _placeholder={{ color: 'gray.400' }}
-                boxShadow='lg'
-                onKeyPress={(e) => { if (e.key === 'Enter') getWeather(e.target.value) }}
-              />
-            </InputGroup >
-          </Center >
+        <VStack>
           <VStack
-            w='100%'
-            h='70%'
-            justifyContent='center'
-            alignItems='center'
+            w={["300px", "400px", "500px"]}
+            h={["400px", "500px"]}
+            bgGradient={getBackgroundBox()}
+            borderRadius="xl"
+            boxShadow="md"
+            p="5"
           >
-            {
-              weather ? (
-                <LazyObjLoader weather={weather ? weather : "clear"} />
-              ) : (
-                <Box fontSize='xl' fontWeight='bold' color='white'>
-                  Location not found
-                </Box>
-              )
-            }
+            <Center>
+              <InputGroup >
+                <InputLeftElement pointerEvents='none'>
+                  <SearchIcon color='gray.400' />
+                </InputLeftElement>
+                <Input
+                  type='text'
+                  placeholder='Enter Your Location'
+                  w='100%'
+                  color='black'
+                  bgColor='white'
+                  borderColor='gray.400'
+                  borderRadius='xl'
+                  borderWidth='2px'
+                  _focus={{ outline: 'none' }}
+                  _hover={{ borderColor: 'purple.500' }}
+                  _placeholder={{ color: 'gray.400' }}
+                  boxShadow='lg'
+                  onKeyPress={(e) => { if (e.key === 'Enter') getWeather(e.target.value) }}
+                />
+              </InputGroup >
+            </Center >
             <VStack
-              spacing='-10px'
+              w='100%'
+              h='70%'
+              justifyContent='center'
               alignItems='center'
-              justify={weather === '404' ? 'center' : 'flex-start'}
             >
-              <HStack>
-                <Box
-                  fontSize='5xl'
-                  fontWeight='bold'
-                  color='white'
-                >
-                  {temp}
-                </Box>
+              {
+                weather ? (
+                  <LazyObjLoader weather={weather ? weather : "clear"} />
+                ) : (
+                  <Box fontSize='xl' fontWeight='bold' color='white'>
+                    Location not found
+                  </Box>
+                )
+              }
+              <VStack
+                spacing='-10px'
+                alignItems='center'
+                justify={weather === '404' ? 'center' : 'flex-start'}
+              >
+                <HStack>
+                  <Box
+                    fontSize='5xl'
+                    fontWeight='bold'
+                    color='white'
+                  >
+                    {temp}
+                  </Box>
+                  <Box
+                    fontSize='xl'
+                    fontWeight='bold'
+                    color='white'
+                  >
+                    °C
+                  </Box>
+                </HStack>
                 <Box
                   fontSize='xl'
                   fontWeight='bold'
                   color='white'
                 >
-                  °C
+                  {location}
                 </Box>
-              </HStack>
-              <Box
-                fontSize='xl'
-                fontWeight='bold'
-                color='white'
-              >
-                {location}
-              </Box>
+              </VStack>
             </VStack>
-          </VStack>
-        </VStack >
+          </VStack >
+          <Text color="#121212">
+            &copy; {new Date().getFullYear()} João Gustavo Soares Bispo.
+            <a href='https://github.com/jgbispo/weatherapp' target="_blank" rel="noreferrer"> GitHub</a>
+          </Text>
+        </VStack>
       </Center >
     </Layout >
   )
