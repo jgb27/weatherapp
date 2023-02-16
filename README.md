@@ -56,4 +56,4 @@ If you find any bugs, feel free to open an issue [here](https://github.com/jgbis
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPL3](https://choosealicense.com/licenses/gpl-3.0/)
