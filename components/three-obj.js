@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { render } from 'react-dom'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadGLTFModel } from '../lib/model'
@@ -11,9 +10,8 @@ function easeOutCirc(x) {
 
 const ThreeObj = ({ weather }) => {
   const refContainer = useRef()
-  const [loading, setLoading] = useState(true)
   const refRenderer = useRef()
-  const urlGLB = `/models3d/${weather}.glb`
+  const urlGLB = `/models3d/${weather === 'mist' ? 'clouds' : weather}.glb`
 
   const handleWindowResize = useCallback(() => {
     const { current: renderer } = refRenderer
@@ -105,7 +103,6 @@ const ThreeObj = ({ weather }) => {
         castShadow: false
       }).then(() => {
         animate()
-        setLoading(false)
       })
 
       let req = null
