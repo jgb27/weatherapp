@@ -4,7 +4,8 @@ import {
   Box,
   Center,
   VStack,
-  Text
+  Text,
+  Select
 } from "@chakra-ui/react";
 import dynamic from 'next/dynamic'
 
@@ -85,36 +86,48 @@ export default function Home() {
   // render
   return (
     <Layout title={`Weather EBX - ${location ? location : "Home"}`}>
-      <Center h="100vh" bgGradient={getBackground(weather)}>
-        <VStack >
-          <VStack
-            w={["300px", "400px", "500px"]}
-            h={["400px", "500px"]}
-            bgGradient={getBackgroundBox(weather)}
-            borderRadius="xl"
-            boxShadow="md"
-            p="5"
+      <VStack w="100vw" h="100vh" bgGradient={getBackground(weather)}>
+        <Select 
+          w='100px' 
+          position='absolute' 
+          mt="10vh" 
+          bgGradient={getBackground(weather)}
+          border="1px solid white"
           >
-            <Center> <Search onPress={Handler} /> </Center>
-            <VStack w='100%' h={["85%", "90%"]} justifyContent='space-evenly' alignItems='center'>
-              <Text fontSize='xl' fontWeight='bold' color='white' >
-                {description.charAt(0).toUpperCase() + description.slice(1)}
-              </Text>
-              {getGLB()}
-              <Info
-                temp={temp}
-                humidity={humidity}
-                location={location}
-                wind={wind}
-                pressure={pressure}
-                country={country}
-                lang={lang}
-              />
-            </VStack>
-          </VStack >
-          <Footer />
-        </VStack>
-      </Center >
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </Select>
+        <Center h="100vh">
+          <VStack >
+            <VStack
+              w={["300px", "400px", "500px"]}
+              h={["400px", "500px"]}
+              bgGradient={getBackgroundBox(weather)}
+              borderRadius="xl"
+              boxShadow="md"
+              p="5"
+            >
+              <Center> <Search onPress={Handler} /> </Center>
+              <VStack w='100%' h={["85%", "90%"]} justifyContent='space-evenly' alignItems='center'>
+                <Text fontSize='xl' fontWeight='bold' color='white' >
+                  {description.charAt(0).toUpperCase() + description.slice(1)}
+                </Text>
+                {getGLB()}
+                <Info
+                  temp={temp}
+                  humidity={humidity}
+                  location={location}
+                  wind={wind}
+                  pressure={pressure}
+                  country={country}
+                  lang={lang}
+                />
+              </VStack>
+            </VStack >
+            <Footer />
+          </VStack>
+        </Center >
+      </VStack>
     </Layout >
   )
 }
