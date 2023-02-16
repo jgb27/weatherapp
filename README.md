@@ -11,7 +11,6 @@ This is a simple weather app that uses the OpenWeatherMap API to get the weather
 - [Three Js](https://threejs.org/)
 - [OpenWeatherMap API](https://openweathermap.org/api)
 
-
 ## How to use
 
 1º Clone the repository
@@ -42,7 +41,14 @@ Contributions are what make the open source community such an amazing place to b
 
 4. Open a pull request
 
+## Bug report
 
+If you find any bugs, feel free to open an issue [here](https://github.com/jgbispo/weatherapp/issues/new) describing it with as many details as possible. I'll try to address it as soon as possible. 
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/jgbispo/)
+- [Instagram](https://www.instagram.com/jgsbispo/)
 
 ## Authors
 
