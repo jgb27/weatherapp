@@ -26,12 +26,29 @@ const ThreeObj = ({ weather }) => {
     }
   }, [])
 
-  const scaleGLB = () => {
-    switch(weather){
+  const targetGLB = () => {
+    switch (weather) {
       case 'clear':
         return new THREE.Vector3(0, 1, 0);
       case 'clouds':
         return new THREE.Vector3(0, 1, 2);
+        case 'rain':
+          return new THREE.Vector3(0, 1, 2);
+      default:
+        return new THREE.Vector3(0, 1, 0);
+    }
+  };
+
+  const scaleGLB = (scH) => {
+    switch (weather) {
+      case 'clear':
+        return scH * 0.001 + 2.6
+      case 'clouds':
+        return scH * 0.001 + 2.8
+        case 'rain':
+          return scH * 0.001 + 3.5
+      default:
+        return scH * 0.001 + 2.3;
     }
   };
 
@@ -54,14 +71,14 @@ const ThreeObj = ({ weather }) => {
       refRenderer.current = renderer
       const scene = new THREE.Scene()
 
-      const target = scaleGLB()
+      const target = targetGLB()
       const initialCameraPosition = new THREE.Vector3(-90, 0, 0)
 
-      const scale = scH * 0.001 + 2.8
+      const scale = scaleGLB(scH)
       const camera = new THREE.OrthographicCamera(
         - scale * (scW / scH), // left
         scale * (scW / scH), // right
-        scale * 1.35, // top
+        scale * 1.25, // top
         - scale * 1.45, // bottom
         0.01,
         50000

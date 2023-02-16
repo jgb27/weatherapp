@@ -39,7 +39,18 @@ export default function Home() {
     const data = await res.json()
     if (data.cod === 200) {
       const { temp, humidity } = data.main
-      setWeather(data.weather[0].main.toLowerCase())
+      if (data.weather[0].main.toLowerCase() === 'mist') {
+        setWeather('clouds')
+      } else {
+        setWeather(data.weather[0].main.toLowerCase())
+      }
+
+      if (data.weather[0].main.toLowerCase() === 'snow') {
+        setWeather('rain')
+      } else {
+        setWeather(data.weather[0].main.toLowerCase())
+      }
+
       setTemp(temp)
       setHumidity(humidity)
       setLocation(data.name)
@@ -150,7 +161,6 @@ export default function Home() {
                   fontSize='5xl'
                   fontWeight='bold'
                   color='white'
-
                 >
                   {temp}
                 </Box>
