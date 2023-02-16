@@ -57,8 +57,6 @@ const ThreeObj = ({ weather }) => {
       const target = scaleGLB()
       const initialCameraPosition = new THREE.Vector3(-90, 0, 0)
 
-      // 640 -> 240
-      // 8   -> 6
       const scale = scH * 0.001 + 2.8
       const camera = new THREE.OrthographicCamera(
         - scale * (scW / scH), // left
