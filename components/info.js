@@ -4,12 +4,12 @@
 // import frameworks
 import { Box, HStack, VStack } from '@chakra-ui/react';
 
-const Info = ({ temp, humidity }) => {
+const Info = ({ temp, humidity, location }) => {
   return (
     <VStack
       spacing='-10px'
       alignItems='center'
-      justify={weather === '404' ? 'center' : 'flex-start'}
+      justify='center'
     >
       <HStack>
         <Box
