@@ -1,5 +1,15 @@
 // description: fetches weather data from openweathermap api
 
+const getCurrentWeather = async () => {
+  // get current location
+  const res = await fetch('https://ipapi.co/json/')
+  const data = await res.json()
+  const { city } = data
+
+  // get weather data
+  return await getWeather(city)
+}
+
 const getWeather = async (location) => {
   const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}`)
   const data = await res.json()
@@ -29,4 +39,4 @@ const getWeather = async (location) => {
   }
 }
 
-export default getWeather
+export { getWeather, getCurrentWeather }

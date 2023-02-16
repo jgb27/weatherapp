@@ -16,7 +16,7 @@ import Info from '@/components/info';
 import Footer from '@/components/Footer';
 
 // controllers
-import getWeather from '@/controllers/getWeather';
+import { getWeather, getCurrentWeather } from '@/controllers/getWeather';
 import { getBackground, getBackgroundBox } from '@/controllers/getBackground';
 
 
@@ -34,7 +34,16 @@ export default function Home() {
 
   // effects: run before render 
   useEffect(() => {
-    getWeather('Vitória, BR')
+    getCurrentWeather().then((res) => {
+      setLocation(res.location)
+      setWeather(res.weather)
+      setTemp(res.temp)
+      setHumidity(res.humidity)
+      setDescription(res.description)
+      setWind(res.wind)
+      setPressure(res.pressure)
+      setCountry(res.country)
+    })
   }, [])
 
   // dynamic import for three.js
