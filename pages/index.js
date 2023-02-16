@@ -41,7 +41,12 @@ export default function Home() {
   // handlers for search
   const Handler = (e) => {
     if (e.key === 'Enter') {
-      getWeather(e.target.value, setTemp, setHumidity, setLocation, setWeather)
+      getWeather(e.target.value).then((res) => {
+        setLocation(res.location)
+        setWeather(res.weather)
+        setTemp(res.temp)
+        setHumidity(res.humidity)
+      })
     }
   }
 
@@ -71,7 +76,7 @@ export default function Home() {
             <Center> <Search onPress={Handler} /> </Center>
             <VStack w='100%' h='70%' justifyContent='center' alignItems='center'>
               {getGLB()}
-              <Info temp={temp} humidity={humidity} />
+              <Info temp={temp} humidity={humidity} location={location}/>
             </VStack>
           </VStack >
           <Footer />
