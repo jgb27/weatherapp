@@ -2,7 +2,7 @@
 
 This is a simple weather app that uses the OpenWeatherMap API to get the weather data for a given city. The app is built using Next Js, Three Js e React Js
 
-![image](https://user-images.githubusercontent.com/83095574/219381886-926117f8-5401-4f83-99a9-dc6a522445da.png)
+![image](https://user-images.githubusercontent.com/83095574/219386852-6db303ba-1e34-4b9f-ac0b-b8023db17b7c.png)
 
 ## Tech Stack
 
