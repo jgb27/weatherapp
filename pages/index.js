@@ -107,7 +107,6 @@ export default function Home() {
           mt="10vh"
           bgGradient={getBackground(weather)}
           border="1px solid white"
-          color="white"
           defaultValue={lang}
           onChange={(e) => switchLang(e.target.value)}
         >
