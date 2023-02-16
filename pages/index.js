@@ -26,11 +26,13 @@ export default function Home() {
   const [location, setLocation] = useState('')
   const [weather, setWeather] = useState('')
   const [description, setDescription] = useState('')
+  const [lang, setLang] = useState('en')
   const [temp, setTemp] = useState(0)
   const [humidity, setHumidity] = useState(0)
   const [wind, setWind] = useState(0)
   const [pressure, setPressure] = useState(0)
   const [country, setCountry] = useState('')
+
 
   // effects: run before render 
   useEffect(() => {
@@ -43,6 +45,7 @@ export default function Home() {
       setWind(res.wind)
       setPressure(res.pressure)
       setCountry(res.country)
+      setLang(res.lang)
     })
   }, [])
 
@@ -64,6 +67,7 @@ export default function Home() {
         setWind(res.wind)
         setPressure(res.pressure)
         setCountry(res.country)
+        setLang(res.lang)
       })
     }
   }
@@ -104,6 +108,7 @@ export default function Home() {
                 wind={wind}
                 pressure={pressure}
                 country={country}
+                lang={lang}
               />
             </VStack>
           </VStack >

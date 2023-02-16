@@ -2,9 +2,10 @@
 // of the city.
 
 // import frameworks
+import selectLanguage from '@/controllers/lang';
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 
-const Info = ({ temp, humidity, location, country, wind, pressure }) => {
+const Info = ({ temp, humidity, location, country, wind, pressure, lang }) => {
   const font = ["16px", "18px", "20px"]
 
   const InfoTemp = () => {
@@ -26,7 +27,7 @@ const Info = ({ temp, humidity, location, country, wind, pressure }) => {
       <HStack spacing={["5px", "10px", "20px"]}>
         <VStack spacing={spacing}>
           <Text fontSize={font} fontWeight='bold' color='white'>
-            Humidity
+            {selectLanguage(lang)[0]}
           </Text>
           <Text fontSize={font} fontWeight='bold' color='white'>
             {humidity} %
@@ -35,7 +36,7 @@ const Info = ({ temp, humidity, location, country, wind, pressure }) => {
 
         <VStack spacing={spacing}>
           <Text fontSize={font} fontWeight='bold' color='white'>
-            Wind
+            {selectLanguage(lang)[1]}
           </Text>
           <Text fontSize={font} fontWeight='bold' color='white'>
             {wind} km/h
@@ -44,7 +45,7 @@ const Info = ({ temp, humidity, location, country, wind, pressure }) => {
 
         <VStack spacing={spacing}>
           <Text fontSize={font} fontWeight='bold' color='white'>
-            Pressure
+            {selectLanguage(lang)[2]}
           </Text>
           <Text fontSize={font} fontWeight='bold' color='white'>
             {pressure} hPa
