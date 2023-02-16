@@ -4,6 +4,7 @@ import {
   Box,
   Center,
   VStack,
+  Text
 } from "@chakra-ui/react";
 import dynamic from 'next/dynamic'
 
@@ -24,8 +25,12 @@ export default function Home() {
   // states
   const [location, setLocation] = useState('')
   const [weather, setWeather] = useState('')
+  const [description, setDescription] = useState('')
   const [temp, setTemp] = useState(0)
   const [humidity, setHumidity] = useState(0)
+  const [wind, setWind] = useState(0)
+  const [pressure, setPressure] = useState(0)
+  const [country, setCountry] = useState('')
 
   // effects: run before render 
   useEffect(() => {
@@ -43,9 +48,13 @@ export default function Home() {
     if (e.key === 'Enter') {
       getWeather(e.target.value).then((res) => {
         setLocation(res.location)
-        setWeather(res.weather)
+        setWeather("clear")
         setTemp(res.temp)
         setHumidity(res.humidity)
+        setDescription(res.description)
+        setWind(res.wind)
+        setPressure(res.pressure)
+        setCountry(res.country)
       })
     }
   }
@@ -74,9 +83,19 @@ export default function Home() {
             p="5"
           >
             <Center> <Search onPress={Handler} /> </Center>
-            <VStack w='100%' h='70%' justifyContent='center' alignItems='center'>
+            <VStack w='100%' h='90%' justifyContent='space-evenly' alignItems='center'>
+              <Text fontSize='5xl' fontWeight='bold' color='white' >
+                {description}
+              </Text>
               {getGLB()}
-              <Info temp={temp} humidity={humidity} location={location}/>
+              <Info
+                temp={temp}
+                humidity={humidity}
+                location={location}
+                wind={wind}
+                pressure={pressure}
+                country='BR'
+              />
             </VStack>
           </VStack >
           <Footer />
