@@ -45,12 +45,6 @@ export default function Home() {
         setWeather(data.weather[0].main.toLowerCase())
       }
 
-      if (data.weather[0].main.toLowerCase() === 'snow') {
-        setWeather('rain')
-      } else {
-        setWeather(data.weather[0].main.toLowerCase())
-      }
-
       setTemp(temp)
       setHumidity(humidity)
       setLocation(data.name)

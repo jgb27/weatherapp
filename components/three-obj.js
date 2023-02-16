@@ -32,8 +32,10 @@ const ThreeObj = ({ weather }) => {
         return new THREE.Vector3(0, 1, 0);
       case 'clouds':
         return new THREE.Vector3(0, 1, 2);
-        case 'rain':
-          return new THREE.Vector3(0, 1, 2);
+      case 'rain':
+        return new THREE.Vector3(0, 1, 2);
+      case 'snow':
+        return new THREE.Vector3(0, 1, 2);
       default:
         return new THREE.Vector3(0, 1, 0);
     }
@@ -45,8 +47,10 @@ const ThreeObj = ({ weather }) => {
         return scH * 0.001 + 2.6
       case 'clouds':
         return scH * 0.001 + 2.8
-        case 'rain':
-          return scH * 0.001 + 3.5
+      case 'rain':
+        return scH * 0.001 + 3.4
+      case 'snow':
+        return scH * 0.001 + 3.4
       default:
         return scH * 0.001 + 2.3;
     }
