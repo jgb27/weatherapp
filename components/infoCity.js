@@ -35,7 +35,7 @@ const InfoCity = ({location, lang, country, countryName, currency, population, b
       alignItems="center"
       justifyContent="space-evenly"
     >
-      <Heading>{location || "loading"}</Heading>
+      <Heading color='white'>{location || "loading"}</Heading>
       <HStack w='100%' justifyContent='space-evenly'>
         <TextInfoCity text={selectLanguage(lang)[3]} subText={`${countryName || "loading"} - ${country || "loading"}`} />
         <TextInfoCity text={selectLanguage(lang)[4]} subText={populationStr || "loading"} />
