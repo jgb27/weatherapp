@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { motion } from 'framer-motion'
+import { Container } from '@chakra-ui/react'
 
 const variants = {
   hidden: { opacity: 0, x: 0, y: 20 },
@@ -14,7 +15,7 @@ const Layout = ({ children, title }) => {
       animate="enter"
       exit="exit"
       variants={variants}
-      transition={{ duration: 0.4, type: 'easeInOut' }}
+      transition={{ duration: 0.9, type: 'easeInOut' }}
       style={{ position: 'relative' }}>
       <Head>
         <title>{title}</title>
@@ -41,7 +42,7 @@ const Layout = ({ children, title }) => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Weather App" />
-        
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:description" content="Weather App" />
         <meta name="twitter:title" content="Weather App" />
