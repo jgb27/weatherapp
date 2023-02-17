@@ -48,6 +48,7 @@ export default function Home() {
       setCountry(res.country)
       setLang(res.lang)
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // dynamic import for three.js
