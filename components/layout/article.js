@@ -49,7 +49,7 @@ const Layout = ({ children, title }) => {
         <meta name="twitter:image" content="/images/og-image.png" />
         <meta name="twitter:image:alt" content="Weather App" />
 
-        <script defer async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2367584188631495"
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2367584188631495"
           crossorigin="anonymous"></script>
       </Head>
       {children}
